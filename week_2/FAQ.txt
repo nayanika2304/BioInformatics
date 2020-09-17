@@ -1,0 +1,59 @@
+https://coursera.org/share/8e7bccb5ee83c925467085daf97516a3
+
+1)Why is DNA polymerase unidirectional?
+
+https://www.youtube.com/watch?v=y4hKibS2fAo#action=share
+
+2)Why do we not make the scoring function in the Frequent Words with Mismatches Problem more robust?
+
+Indeed, the scoring function in the Frequent Words with Mismatches and Reverse Complements Problem may count the same k-mers twice if these k-mers contributes to both Countd(Text, Pattern) and Countd(Text, ReverseComplement(Pattern)). For example, CTTCAG and its reverse complement CTGAAG are very similar, and both are just one mismatch away from Text = CTGCAG. Thus, Count1(Text, CTTCAG) and Count1(Text, CTTCAG) will both count an approximate occurrence of CTGCAG twice. Thus, to improve our scoring function, the first thing that comes to mind is to divide Countd(Text, Pattern) + Countd(Text, Pattern) by 2 for a string Pattern that is a reverse palindrome (i.e., the reverse complement of Pattern is itself).
+
+However, it becomes less clear what to do if Pattern is almost equal to its reverse complement. For the sake of simplicity, we are therefore willing to close our eyes to the limitations on our scoring function posed by reverse palindromes. However, we should be wary of any candidates for DnaA boxes that are reverse palindromes (or nearly reverse palindromes).
+
+3) How does deamination lead to a mutation?
+
+Let's walk through deamination as it applies to a segment of double-stranded DNA. In the top of the figure below, the replication fork is about to open the seven base pairs shown and start replicating them. The (forward) half-strand on top is being synthesized as a single piece, whereas the (reverse) half-strand on the bottom is being synthesized in Okazaki fragments. The bottom strand is more vulnerable to deamination because it spends more time single-stranded than the top strand. The process of deamination is shown on the bottom in the figure below.
+deamination.png
+deamination_okazaki.png
+Figure: (Top) A replication fork is about to open seven base pairs. (Bottom) Deamination leads to a mutation of C into T and occurs on the bottom strand, where Okazaki fragments are being synthesized. Since the strand on the top is synthesized all at once, it has much smaller chance to be deaminated. After replication finishes, there are the two daughter strands, one of them with a mutation. The arrows indicate the direction of strand synthesis.
+
+4) Why are the values of the skew diagram at the beginning and end of the genome not the same?
+
+At the beginning of the genome, the skew is set equal to zero. At the end of the genome, the skew should be equal to the total number of G's minus the total number of C's encountered in the genome. So this value will only equal zero if the genome has equal amounts of cytosine and guanine, which is unlikely
+
+5) If deamination decreases the amount of cytosine on the forward strand, and increases the amount of thymine on the forward strand and adenine on the reverse strand, why don't we examine the difference between occurrences of T and C or between A and C? What is special about G and C?
+
+Either of these two alternatives is perfectly reasonable. But computing the skew as the difference between G and C performed the best in practice.
+
+In particular, you may have noticed that the frequency of T on the forward half-strand hardly changed. Although deamination initially creates a surplus of thymine on the forward half-strand, this surplus may be reduced by follow-up mutations of thymine into other nucleotides. In fact, deamination is just one of many factors that may contribute to skew. See Frank and Lobry, 1999 for a review of various mechanisms that contribute to the GC-skew. Tillier and Collins, 2000 even argued that deamination is not the major factor contributing to GC-skew. The question is whether there is some mechanism that makes GC-skew such a useful tool for identifying the location of ori in some species (like E. coli) but not others.
+
+6) If deamination results in the mutation of cytosine into thymine on the forward half-strand, why is there any cytosine remaining in the forward half-strand?
+
+Because the vast majority of a bacterium’s genome serves a vital purpose in its survival, only a small fraction of cytosine can be mutated and maintain a viable bacterium.
+
+7)Why do we analyze only one strand of DNA to compute the skew diagram? Would the skew diagram change if we analyze the opposing strand of DNA?
+
+The skew diagram is constructed by walking along the strand of DNA in the 5’ → 3’ direction (see figure reproduced below). Therefore, the skew diagram constructed for the complementary strand of E. coli will change, since we will be traversing the genome in the opposite direction.
+increasing_decreasing_skew.png
+For example, if the E. coli skew diagram (reproduced below) is obtained by traversing the genome starting from some position in the genome above in the clockwise direction, then the skew diagram constructed for another strand corresponds to traversing the genome starting from the same position but in the counterclockwise direction.
+skew_diagram_ecoli.png
+Also, note that for every interval of DNA, the difference between the amount of cytosine and guanine on the two strands have the same absolute values but different signs. Thus, the skew histogram for one strand is the "reversal" of the skew diagram for another strand. However, the minimum in both skew diagrams point to the same position in the genome.
+
+8)What is the ratio of G/C and A/T base pairs within a single strand?
+If you look at a double-stranded genome, then the number of occurrences of G and C are the same because guanine pairs with cytosine (we do not account for the rare cases of mismatched base pairs caused by damage to DNA). However, the number of occurrences of G and C within a single strand may differ substantially.
+
+Furthermore, despite base pairing, the amount of guanine and cytosine may be very different than the amount of adenine and thymine. For this reason, biologists refer to the percentage of guanine and cytosine nucleotides in a genome as the genome's GC-content. GC-content varies between species; the GC-content of the bacterium Streptomyces coelicolor is 72%, whereas the GC-content of the pathogen Plasmodium falciparum, which causes malaria, is only about 20%. In humans, the GC-content is about 42%.
+
+9) In biological applications, how do we select the number of mismatches (d) when solving the Frequent Words with Mismatches Problem?
+
+Although there are no rigorous guidelines for selecting the parameter d in practice, biologists usually follow their intuition. On the one hand, d should not be too small, or else we may miss the biologically correct frequent word; on the other hand, d should not be too large, since many spurious approximate matches might be classified as putative DnaA boxes. In practice, biologists also analyze variations in experimentally confirmed DnaA boxes from well-studied bacteria and derive statistics for the expected number of mutations from the "canonical" DnaA box. It turns out that most of these studies identify canonical DnaA boxes that are very conserved, having no more than one or two mutations.
+
+10) Why do we only consider mismatches in DnaA boxes and not insertions and deletions of nucleotides?
+
+An insertion or deletion would likely prevent DnaA from being able to bind to the DnaA box because the interval is so short.
+
+11) Why do we analyze the window starting (rather than ending or centered) at the position of E. coli where the skew achieves the minimum?
+
+This was an arbitrary choice, and we got lucky this time. In practice, biologists should explore various windows in the vicinity of the minimum skew.
+
+

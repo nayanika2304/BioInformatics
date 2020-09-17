@@ -2,9 +2,12 @@ import itertools
 import time
 from collections import defaultdict
 
-text = "CCATACGCGCTCCGCGCGCTATATATACATCCCCGCTACGCTCCACCCCCGCTCCATCCCCGCATATACCCGCTGCCCGCTGCGCGCTCCGCATCCACGCTACCCGCTACACATCCGCACACATATCCGCGCACGCTGCACGCACATCCGCACATACGCTACACCCATGCTATACACGCTGCTATCCATATACACGCTATGCGC"
-k = 5
-d = 3
+
+with open("Salmonella_enterica.txt",'r') as f:
+    text = f.read()
+
+k = 9
+d = 1
 
 dna = {
     "A": "T",
@@ -80,5 +83,24 @@ def PrintFreqArrayWithReverseComplement(frequencies):
             result.append(kmer)
     return str(result).lstrip("[").rstrip("]").replace(",","")
 
-frequencies = FrequentWordsWithMismatches(text,k,d)
+frequencies = FrequentWordsWithMismatches(text[3818639:],k,d)
 print(PrintFreqArrayWithReverseComplement(frequencies))
+
+'''
+    def frequent_words_with_missmatches_by_sorting(text, k, d):
+    frequent_patterns = set()
+    neighborhoods = [neighbors(text[i:i+k], d) for i in range(len(text) - k + 1)]
+    neighborhood_array = [strings for neighborhood in neighborhoods for strings in neighborhood]
+    index = [pattern_to_number(neighborhood_array[i]) for i in range(len(neighborhood_array))]
+    count = [1] * len(index)
+    sorted_index = sorted(index)
+    for i in range(len(neighborhood_array) - 1):
+        if sorted_index[i] == sorted_index[i + 1]:
+            count[i + 1] = count[i] + 1
+    max_count = max(count)
+    for i in range(len(neighborhood_array)):
+        if count[i] == max_count:
+            pattern = number_to_pattern(sorted_index[i], k)
+            frequent_patterns.add(pattern)
+    return frequent_patterns
+'''

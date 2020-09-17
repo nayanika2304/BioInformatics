@@ -1,5 +1,7 @@
-text = "TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT"
-
+text = "GCATACACTTCCCAGTAGGTACTG"
+'''
+At the beginning of the genome, the skew is set equal to zero. At the end of the genome, the skew should be equal to the total number of G's minus the total number of C's encountered in the genome. So this value will only equal zero if the genome has equal amounts of cytosine and guanine, which is unlikely.
+'''
 def skew(text):
     n = len(text)
     num = 0

@@ -1,7 +1,6 @@
-pattern = 'GAATGC'
-text = 'ACGTTGCATGTCGCATGATGCATGAGAGCT'
-d = 3
-
+pattern = 'CCC'
+text = 'CATGCCATTCGCATTGTCCCAGTGA'
+d = 2
 
 def hamming_problem(pattern1,pattern2):
     count = 0
