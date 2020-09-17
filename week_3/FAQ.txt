@@ -1,0 +1,9 @@
+We have N = 500, L = 1000, k = 9.
+
+Then, the combination of a 9-mer is (4 * 4 * 4 * 4 * 4 * 4 * 4 * 4 *4) = 4^9, and how each nucleotide has a 1/4 of probability of appearing, then every 9-mer has a (1/4)^9 of probability of appearing.
+
+In a space of 1000 nucleotides, there are (L - k + 1) different 9-mer.
+
+So the probability to getting a specific 9-mer is: N * (L - k + 1) * (1/4)^9 = 1.89208984375
+
+a regulatory motif is a pattern that appears at least once (perhaps with variation) in each of many different regions that are scattered throughout the genome.
