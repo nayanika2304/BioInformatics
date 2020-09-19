@@ -7,3 +7,33 @@ In a space of 1000 nucleotides, there are (L - k + 1) different 9-mer.
 So the probability to getting a specific 9-mer is: N * (L - k + 1) * (1/4)^9 = 1.89208984375
 
 a regulatory motif is a pattern that appears at least once (perhaps with variation) in each of many different regions that are scattered throughout the genome.
+
+######################calculate motif###############
+Conditions
+; (k,d)-motif(s) should be found in every strings (!!!) of given Dna (with d-mismatch)
+  The word "EVERY" means "COMMON" element(s) in multiple strings in Dna (a string list).
+; I missed this and spent lots of time.
+
+1. d-mismatch kmers from a string in Dna
+      a. Get a list of kmers from a string (string list)
+      b. Get a list of d-mismatch kmers from above kmers (also string list)
+
+2. Repeat step 1 in every strings in Dna
+    Smaple input (Step 7)
+       'ATTTGGC'    => first list of kmers from this string   =>  first list of d-neighbors
+       'TGCCTTA'    => second list of kmers from this string   =>  second list of d-neighbors
+       'CGGTATC'   => third list of kmers from this string   =>  third list of d-neighbors
+       'GAAAATT'    => fourth list of kmers from this string   =>  fourth list of d-neighbors
+
+3. Get a list of common elements from step 2 (elements existing in every d-neghbors lists above.
+
+For the general case of tt motifs of length nn the maximum score is given by  (t − ceiling(t/4) ) ∗ n(t−ceiling(t/4))∗n
+
+Entropy is a measure of the uncertainty of a probability distribution (p1, …, pN), and is defined as follows:
+
+What are the maximum and minimum possible values for the entropy of a probability distribution containing four values?
+ANS : The entropy of the completely conserved third column is 0, which is the minimum possible entropy. On the other hand,
+a column with equally-likely nucleotides (all probabilities equal to 1/4) has maximum possible entropy −4 · 1/4 · log2(1/4) = 2.
+
+In general, the more conserved the column, the smaller its entropy.
+the entropy of a motif matrix is defined as the sum of the entropies of its columns
