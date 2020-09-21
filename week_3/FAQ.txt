@@ -37,3 +37,5 @@ a column with equally-likely nucleotides (all probabilities equal to 1/4) has ma
 
 In general, the more conserved the column, the smaller its entropy.
 the entropy of a motif matrix is defined as the sum of the entropies of its columns
+
+

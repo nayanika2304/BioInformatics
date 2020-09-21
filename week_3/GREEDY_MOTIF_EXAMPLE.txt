@@ -1,0 +1,105 @@
+ure!  Below is an example, and you may also like to read this blog post by our student Graeme Benstead-Hume. Consider the following matrix Dna, and let us walk through GreedyMotifSearch(Dna, 4, 5) when we select the 4-mer ACCT from the first sequence in Dna as the first 4-mer in the growing collection Motifs.
+
+Although GreedyMotifSearch(Dna, 4, 5) will analyze all possible 4-mers from the first sequence, we limit our analysis to a single 4-mer ACCT:
+
+                             TTACCTTAAC
+                             AGGATCTGTC
+                        Dna  CCGACGTTAG
+                             CAGCAAGGTG
+                             CACCTGAGCT
+
+We first construct the matrix Profile(Motifs) of the chosen 4-mer ACCT:
+
+            Motifs           A    C    C    T
+
+
+
+                       A:    1    0    0    0
+
+                       C:    0    1    1    0
+
+    Profile(Motifs)    G:    0    0    0    0
+
+                       T:    0    0    0    1
+
+Since Pr(Pattern|Profile) = 0 for all 4-mers in the second sequence in Dna, we select its first 4-mer AGGA as the Profile-most probable 4-mer, resulting in the following matrices Motifs and Profile:
+
+
+            Motifs           A    C    C    T
+
+                             A    G    G    A
+
+
+
+                       A:    1    0    0   1/2
+
+                       C:    0   1/2  1/2   0
+
+    Profile(Motifs)    G:    0   1/2  1/2   0
+
+                       T:    0    0    0   1/2
+
+We now compute the probabilities of every 4-mer in the third sequence in Dna based on this profile.  The only 4-mer with nonzero probability in the third sequence is ACGT, and so we add it to the growing set of 4-mers:
+
+
+                             A    C    C    T
+
+             Motifs          A    G    G    A
+
+                             A    C    G    T
+
+
+
+                       A:    1    0    0   1/3
+
+                       C:    0   2/3  1/3   0
+
+    Profile(Motifs)    G:    0   1/3  2/3   0
+
+                       T:    0    0    0   2/3
+
+We now compute the probabilities of every 4-mer in the fourth sequence in Dna based on this profile and find that AGGT is the most probable 4-mer:
+
+       CAGC  AGCA  GCAA  CAAG  AAGG  AGGT  GGTG
+
+        0   1/27    0     0     0    4/27   0
+
+After adding AGGT to the matrix Motifs, we obtain the following motif and profile matrices:
+
+                             A    C    C    T
+
+             Motifs          A    G    G    A
+
+                             A    C    G    T
+
+                             A    G    G    T
+
+
+
+                       A:    1    0    0   1/4
+
+                       C:    0   2/4  1/4   0
+
+    Profile(Motifs)    G:    0   2/4  3/4   0
+
+                       T:    0    0    0   3/4
+
+We now compute the probabilities of every 4-mer in the fifth sequence in Dna based on this profile and find that AGCT is the most probable 4-mer:
+
+
+       CACC  ACCT  CCTG  CTGA  TGAT  GAGT  AGCT
+
+         0   6/64    0     0     0    0    18/64
+
+After adding AGCT to the motif matrix, we obtain the following motif matrix with consensus AGGT:
+
+                             A    C    C    T
+
+                             A    G    G    A
+
+             Motifs          A    C    G    T
+
+                             A    G    G    T
+
+                             A    G    C    T
+
