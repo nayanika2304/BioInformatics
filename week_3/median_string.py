@@ -27,12 +27,13 @@ def motif_score(pattern, motif):
     '''Returns the score of d(pattern, motif).'''
     return min([hamming_problem(motif[i:i+len(pattern)], pattern) for i in range(len(motif)-len(pattern)+1)])
 
-k = 3
-dnas = ['AAATTGACGCAT',
-        'GACGACCACGTT',
-        'CGTCAGCGCCTG',
-        'GCTGAGCACCGG',
-        'AGTTCGGGACAG'
+k = 7
+dnas = [
+    'CTCGATGAGTAGGAAAGTAGTTTCACTGGGCGAACCACCCCGGCGCTAATCCTAGTGCCC',
+
+    'GCAATCCTACCCGAGGCCACATATCAGTAGGAACTAGAACCACCACGGGTGGCTAGTTTC',
+
+    'GGTGTTGAACCACGGGGTTAGTTTCATCTATTGTAGGAATCGGCTTCAAATCCTACACAG',
         ]
 print(median_string(k,dnas))
 
