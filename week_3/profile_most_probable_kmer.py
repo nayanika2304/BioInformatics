@@ -36,3 +36,27 @@ def profile(dna_seq,k,profile_matrix):
     return sol
 
 print(profile(text,k,prof_dict))
+'''
+def profile_most_probable_kmer(dna, k, profile):
+    Returns the profile most probable k-mer for the given input data.
+
+    # A dictionary relating nucleotides to their position within the profile.
+    nuc_loc = {nucleotide:index for index,nucleotide in enumerate('ACGT')}
+
+    # Initialize the maximum probabily.
+    max_probability = -1
+    most_probable = ''
+    # Compute the probability of the each k-mer, store it if it's currently a maximum.
+    for i in range(len(dna)-k+1):
+        # Get the current probability.
+        current_probability = 1
+        for j, nucleotide in enumerate(dna[i:i+k]):
+            current_probability *= profile[j][nuc_loc[nucleotide]]
+
+        # Check for a maximum.
+        if current_probability > max_probability:
+            max_probability = current_probability
+            most_probable = dna[i:i+k]
+
+    return most_probable
+'''
