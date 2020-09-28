@@ -3,7 +3,7 @@ import time
 from collections import defaultdict
 
 
-with open("Salmonella_enterica.txt",'r') as f:
+with open("Salmonella_enterica.txt", 'r') as f:
     text = f.read()
 
 k = 9

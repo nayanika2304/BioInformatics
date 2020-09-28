@@ -1,6 +1,6 @@
 import math
 
-with open('dataset_160_9.txt','r') as dataset:
+with open('dataset_160_9.txt', 'r') as dataset:
     data = []
     for line in dataset:
         data.append(line.strip(" "))

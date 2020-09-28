@@ -1,5 +1,5 @@
 
-with open("Salmonella_enterica.txt",'r') as f:
+with open("Salmonella_enterica.txt", 'r') as f:
     sequence = f.read()
 
 print(sequence)
