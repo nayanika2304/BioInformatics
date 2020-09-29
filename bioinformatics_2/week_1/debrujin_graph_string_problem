@@ -1,0 +1,25 @@
+def construct_debrujin_graph(k,text):
+    edges = [text[i:i+k] for i in range(0,len(text)-k)]
+    return construct_debrujin_graph_from_edges(edges)
+
+def construct_debrujin_graph_from_edges(edges):
+    matches = {}
+    for edge in edges:
+        parent = edge[:-1]
+        child = edge[1:]
+        if parent in matches:
+            matches[parent].insert(0, child)
+        else:
+            matches[parent] = [child]
+    outputs = [key+" -> "+','.join(matches[key]) for key in list(matches.keys())]
+    return outputs
+
+with open('dataset_199_6.txt','r') as f:
+    data = []
+    for d in f.readlines():
+        data.append(d)
+    k = int(data[0])
+    text = str(data[1])
+output = construct_debrujin_graph(k,text)
+for out in output:
+    print(out)
