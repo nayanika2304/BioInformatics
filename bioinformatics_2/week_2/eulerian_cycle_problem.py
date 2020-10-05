@@ -75,7 +75,7 @@ with open('dataset_203_2.txt', 'r') as file:
     graph = dict((line.strip().split(' -> ') for line in file))
     for key in graph:
         graph[key] = graph[key].split(',')
-
+print(graph)
 cycle = eulerian_cycle_2(graph)
 result = '->'.join(cycle)
 print(result)
