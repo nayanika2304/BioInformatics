@@ -1,3 +1,4 @@
+import itertools
 from random import sample
 
 def find_cycle(graph, start_node):
@@ -72,16 +73,42 @@ def find_eulerian_path(graph):
                 break
     return cycle[:-1]
 
-graph = {}
+def string_spelled_by_a_genome_path(patterns):
+    return patterns[0] + ''.join([pattern[-1] for pattern in patterns[1:]])
 
-f = open('dataset_203_6.txt', 'r')
-for line in f:
-    line = line[:-1].split(' ')
-    source = line[0]
-    sinks  = line[2].split(',')
-    graph[source] = set(sinks)
-f.close()
-print(graph)
-eulerian_path = find_eulerian_path(graph)
-result = '->'.join(eulerian_path)
-print(result)
+
+def _get_pair_prefix(pair, k):
+    return pair[:k-1] + pair[k:k+k-1]
+
+
+def _get_pair_suffix(pair, k):
+    return pair[1:k] + pair[k+1:k+k]
+
+
+def string_reconstruction_from_string_pairs(k, d, pairs):
+    edges = {}
+    graph = {}
+    # build initial unvisited edges, which has all edges from graph
+    for pair in pairs:
+        prefix = _get_pair_prefix(pair, k)
+        suffix = _get_pair_suffix(pair, k)
+        if prefix in edges:
+            edges[prefix].append(suffix)
+        else:
+            edges[prefix] = [suffix]
+    for source, targets in edges.items():
+        graph[source] = set(targets)
+    path = find_eulerian_path(graph)
+    first = string_spelled_by_a_genome_path([s[0:k-1] for s in path])
+    second = string_spelled_by_a_genome_path([s[k:k+k-1] for s in path])
+    return first + second[-k-d:]
+
+with open('dataset_204_16.txt', 'r') as datafile:
+    lines = datafile.readlines()
+    args = lines[0].strip().split(" ")
+    k = int(args[0])
+    d = int(args[1])
+    pairs = [pair[0:k] + pair[k+1:k+k+1] for pair in lines[1:]]
+    expected = lines[-1].strip()
+
+print(string_reconstruction_from_string_pairs(k,d,pairs))
